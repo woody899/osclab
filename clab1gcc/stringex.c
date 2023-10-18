@@ -6,6 +6,7 @@ int main(){
     char second[MAX];
     char name[MAX];
     char str[MAX];
+    int year = 2001;
 
     printf("Enter your first name: ");
     scanf("%s",first);
@@ -13,6 +14,8 @@ int main(){
 
     printf(" Now what is your second name? ");
     scanf("%s",second);
+
+
 
     int i = 0;
     while(second[i] != NULL){
@@ -23,9 +26,14 @@ int main(){
         i++;
     }
 
-
-
     printf("Now testing uppercase functionality: %s \n",second);
 
-    return 0;
+    strcat(first,second);
+    printf("Testing concatination via strcat(), %s \n",first);
+
+
+    printf("From here we use snprintf \n");
+    snprintf(name,sizeof(name),"%s %s %n",first,second,year);
+
+    //Concatenated string via snprintf doesn't work?? Ask TA or Arkid
 }
