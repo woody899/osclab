@@ -155,7 +155,6 @@ void test3()
     list = dpl_insert_at_index(list, content1, -1, false);
 
     list = dpl_insert_at_index(list, content3, 99, false);
-
     list = dpl_insert_at_index(list, content2, 1, false);
 
     int c1 = dpl_get_index_of_element(list, content1);

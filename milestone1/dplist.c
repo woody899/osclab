@@ -119,58 +119,73 @@ dplist_t *dpl_insert_at_index(dplist_t *list, void *element, int index, bool ins
 dplist_t *dpl_remove_at_index(dplist_t *list, int index, bool free_element) {
 
     //TODO: add your code here
-    if(list == NULL){return NULL;}
-
-    int i;
-    dplist_node_t *temp = list->head;
-
-    if (index <= 0) {
-        list->head = temp->next;
-        free(temp);
-        return list;
-    } else if (index > dpl_size(list)) {
-
-        while(temp != NULL){
-            dplist_node_t* after = list->head->next;
-            if(after != NULL){
-                temp = after;
-            } else{
-                free(temp);
-            }
-        }
-        return list;
-
-    } else if(list->head == NULL){
+    if (list == NULL) {
         return NULL;
     }
-    else {
-
-        for (i = 0; i < index - 2; i++) {
-            temp = temp->next;
-            dplist_node_t *temp2 = temp->next;
-            temp = temp2->next;
-            free(temp2);
-
-        }
+    if (list->head == NULL) {
         return list;
     }
+    if(index <= 0){
+        dplist_node_t *temp = list->head;
+        if(free_element){
+            list->element_free(&(list->head->element));
+        }
+        list->head = temp->next;
+        free(temp);
 
+    } else{
+        int i = 0;
+        dplist_node_t* temp = list->head;
+        while(i < index-1 && temp->next!= NULL ){
+            temp->next;
+            i++;
+        }
+        if(temp == NULL){
+            dplist_node_t* temp2 = temp->prev;
+            dplist_node_t* temp3 = temp2->prev;
+            if(free_element){
+                list->element_free(&(temp2->element));
+            }
+            free(temp2);
+            temp3->next = temp;
+        }else{
+            dplist_node_t* temp2 = temp->next;
+            dplist_node_t* temp3 = temp2->next;
+            if(free_element){
+                list->element_free(&(temp2->element));
+            }
+            free(temp2);
+            temp->next = temp3;
+
+        }
+
+
+
+
+    }
+    return list;
 }
+
+
 
 int dpl_size(dplist_t *list) {
 
     //TODO: add your code here
     if(list == NULL){return -1;}
 
-    int i = 0;
+    int i = 1;
     dplist_node_t* current = list -> head;
-
+    if(list->head == NULL){
+        return 0;
+    }
     while(current != NULL){
 //        dplist_node_t* after = list->head->next;
 //       current->head=after; //this is wrong, it turns the original list null
+    if(current->next == NULL){return i;}
+    else{
         current = current->next;
         i++;
-
+    }
     }
     return i;
 
@@ -199,50 +214,34 @@ int dpl_get_index_of_element(dplist_t *list, void *element) {
     if(list == NULL){return -1;}
 
     dplist_node_t* current = list->head;
-    int i = 0;
+    int i;
+    int count = 0;
     while(current != NULL){
-        if(current->element == element){
-            return i;
+        i = list->element_compare(current,element);
+
+        if(i == 0){
+            return count;
         }
         current = current->next;
-        i++;
-    }
-    return i;
+       count++;
+   }
+    return -1;
 
 }
 
 dplist_node_t *dpl_get_reference_at_index(dplist_t *list, int index) {
-    int count = 0 ;
-    dplist_node_t *current = list->head;
+
     //TODO: add your code here
-    if(dpl_size(list) <= 0){
-        // we return first line node
+    if (list == NULL) {return NULL;}
+    if (list->head == NULL || index <= 0) {
         return list->head;
-    } else if(index > dpl_size(list)){
-        while(current != NULL){
-            dplist_node_t* after = current->next;
-            if(after != NULL){
-                current = after;
-            } else{
-                return current;
-            }
-        }
-    } else if(dpl_size(list) == 0){
-        return NULL;
-    } else if(list == NULL){
-        return NULL;
     }
-    else{
-
-        for (count = 0; count < index - 2; count++) {
-            current = current->next;
-            if(count == index - 2){
-                return current;
-            }
-
-        }
+    dplist_node_t *current = list->head;
+    int count = 0;
+    while (count < index && current->next != NULL) {
+        current = current->next;
+        count++;
     }
-
     return current;
 }
 
