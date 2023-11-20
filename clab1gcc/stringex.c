@@ -28,12 +28,12 @@ int main(){
 
     printf("Now testing uppercase functionality: %s \n",second);
 
-    strcat(first,second);
-    printf("Testing concatination via strcat(), %s \n",first);
+
+    printf("Testing concatination via strcat(), %s \n",strcat(first,second));
 
 
     printf("From here we use snprintf \n");
-    snprintf(name,sizeof(name),"%s %s %n",first,second,year);
+    snprintf(name,sizeof(name),"%s %s %n",first,second,&year);
 
     //Concatenated string via snprintf doesn't work?? Ask TA or Arkid
 }
