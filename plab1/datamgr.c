@@ -57,6 +57,12 @@ void datamgr_parse_sensor_files(FILE *fp_sensor_map, FILE *fp_sensor_data)
         sensorStuff = dpl_insert_at_index(sensorStuff, element, count, true);
         count++;
     }
+
+    // Parsing binary data
+
+    while(fread(fp_sensor_data,sizeof(sensor_data_t),1,))
+
+
 }
 
 //Just removing what is in the linked list.
