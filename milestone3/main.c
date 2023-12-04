@@ -12,6 +12,7 @@ sensor_data_t* sensor;
 FILE* file;
 sbuffer_t* shared_buffer;
 pthread_mutex_t mutex2 = PTHREAD_MUTEX_INITIALIZER;
+//pthread_cond_t cond2 = PTHREAD_COND_INITIALIZER;
 void *writer_thread() {
     sensor_data_t *dumdum = (sensor_data_t *)malloc(sizeof(sensor_data_t));
 
@@ -57,9 +58,11 @@ void *reader_thread() {
             usleep(25000);
 
         }
-        //normally I would add a wait over here(after the while loop), however, for this exercise
+        //pthread_cond_wait(&cond2,&mutex2);
+        //normally I would add a wait over here(after the while loop, like above), however, for this exercise
         // our data is not coming from a continuous stream and is confined to the
-        // contents of the binary file.
+        // contents of the binary file. Obviously I would have to signal that condition from the
+        // writer thread. 
 
 
     free(obtained_data);
