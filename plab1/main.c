@@ -8,7 +8,6 @@
 
 
 int main(){
-    printf("Hello World\n");
 
     FILE * map = fopen("room_sensor.map", "r");
     FILE * data = fopen("sensor_data", "rb");

@@ -47,6 +47,11 @@ int sbuffer_free(sbuffer_t **buffer) {
     }
     free(*buffer);
     *buffer = NULL;
+
+    //destroy the mutex and the condition variable once free is called in the end
+    pthread_mutex_destroy(&mutex);
+    pthread_cond_destroy(&condition);
+
     return SBUFFER_SUCCESS;
 }
 

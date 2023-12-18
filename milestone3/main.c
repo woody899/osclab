@@ -7,18 +7,18 @@
 #include <time.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <stdlib.h>
 
 sensor_data_t* sensor;
 FILE* file;
 sbuffer_t* shared_buffer;
 pthread_mutex_t mutex2 = PTHREAD_MUTEX_INITIALIZER;
-//pthread_cond_t cond2 = PTHREAD_COND_INITIALIZER;
 void *writer_thread() {
     sensor_data_t *dumdum = (sensor_data_t *)malloc(sizeof(sensor_data_t));
 
     if (file == NULL) {
         perror("FILE NOT FOUND");
-        return 0;
+        exit(EXIT_FAILURE);
     }
 
     while (fread(&sensor->id, sizeof(u_int16_t), 1, file) == 1) {
@@ -47,7 +47,8 @@ void *reader_thread() {
 
     if (log == NULL) {
         perror("FILE NOT FOUND");
-        return NULL;
+        fclose(log);
+        exit(EXIT_FAILURE);
     }
 
         while (sbuffer_remove(shared_buffer, obtained_data) != SBUFFER_NO_DATA) {
@@ -58,11 +59,7 @@ void *reader_thread() {
             usleep(25000);
 
         }
-        //pthread_cond_wait(&cond2,&mutex2);
-        //normally I would add a wait over here(after the while loop, like above), however, for this exercise
-        // our data is not coming from a continuous stream and is confined to the
-        // contents of the binary file. Obviously I would have to signal that condition from the
-        // writer thread. 
+
 
 
     free(obtained_data);
@@ -73,6 +70,12 @@ void *reader_thread() {
 int main(){
     pthread_t writer, reader1, reader2;
     file = fopen("sensor_data", "rb");
+
+    if (file == NULL) {
+        perror("Error opening file");
+        exit(EXIT_FAILURE);
+    }
+
     sensor = (sensor_data_t *)malloc(sizeof(sensor_data_t));
 
     // Initialize shared buffer
