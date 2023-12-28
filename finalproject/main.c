@@ -39,16 +39,19 @@ void *storagePasser(){
     }
 
     while(sbuffer_remove(sharedBuffer,temp) == 0){
-        pthread_mutex_lock(&main_mutex);
-        if(sbuffer_getFlagStorage(sharedBuffer,temp->id) == 0) {
+
+        //pthread_mutex_lock(&main_mutex);
+
+        if(temp->mgrStorage == 0) {
             // fprintf(fpointer,"%hu, %f, %ld\n",temp->id,temp->value,temp->ts); <- this will still work
             // however, I think it would be wise to use insert_sensor instead, otherwise we end up with an
             //unused function. Besides, it already has a write_to_log process called in it.
             insert_sensor(fPointer, temp->id, temp->value, temp->ts);
-            fflush(fPointer);
-            sbuffer_update_mgrStorage(sharedBuffer);
+            printf("data inserted into csv file\n");
+            sharedBuffer->head->data.mgrStorage = 1;
         }
-        pthread_mutex_unlock(&main_mutex);
+        fflush(fPointer);
+        //pthread_mutex_unlock(&main_mutex);
     }
     free(temp);
     close_db(fPointer);
@@ -57,9 +60,9 @@ void *storagePasser(){
 
 void *dataPasser(){
     FILE* map = fopen("room_sensor.map","r");
-    pthread_mutex_lock(&main_mutex);
-    datamgr_parse_sensor_files(map,sharedBuffer);
-    pthread_mutex_unlock(&main_mutex);
+
+    datamgr_parse_sensor_files(map,sharedBuffer, &main_mutex);
+
     fclose(map);
     pthread_exit(EXIT_SUCCESS);
 }
@@ -106,7 +109,7 @@ int main(int argc, char* argv[]){
     pthread_t dataMgrThread;
     pthread_t storageThread;
 
-    if(id != 0) {
+    if(id > 0) {
         //PARENT PROCESS
 
         //create the threads
@@ -123,6 +126,7 @@ int main(int argc, char* argv[]){
         pthread_mutex_destroy(&main_mutex);
 
         sbuffer_free(&sharedBuffer);
+        pthread_exit(NULL);
 
     }
 

@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <pthread.h>
 #include "config.h"
 #include "sbuffer.h"
 
@@ -38,7 +39,7 @@
  *  \param fp_sensor_map file pointer to the map file
  *  \param fp_sensor_data file pointer to the binary data file
  */
-void datamgr_parse_sensor_files(FILE *fp_sensor_map, sbuffer_t* buffer);
+void datamgr_parse_sensor_files(FILE *fp_sensor_map, sbuffer_t* buffer, pthread_mutex_t *mutex);
 
 /**
  * This method should be called to clean up the datamgr, and to free all used memory. 

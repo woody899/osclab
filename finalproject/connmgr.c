@@ -11,23 +11,23 @@
 #include "config.h"
 #include "lib/tcpsock.h"
 #include <pthread.h>
+#include <stdbool.h>
 #include "sbuffer.h"
 
 sbuffer_t *tempBuffer;
 pthread_mutex_t mutex2 = PTHREAD_MUTEX_INITIALIZER;
 
 
-void* handle_client(void* arg){
+void* handle_client(void* arg) {
     tcpsock_t *client = (tcpsock_t *)arg;
     sensor_data_t data;
     int bytes, result;
     char message[100];
-    pthread_mutex_lock(&mutex2);
+    bool isFirstData = true; // flag to check if this is the first data received
+
     do {
         // read sensor ID
         bytes = sizeof(data.id);
-        sprintf(message,"Sensor %hu has opened a connection",data.id);
-        write_to_log_process(message);
         result = tcp_receive(client, (void *) &data.id, &bytes);
         // read temperature
         bytes = sizeof(data.value);
@@ -35,20 +35,26 @@ void* handle_client(void* arg){
         // read timestamp
         bytes = sizeof(data.ts);
         result = tcp_receive(client, (void *) &data.ts, &bytes);
+
+        if (isFirstData && (result == TCP_NO_ERROR) && bytes) {
+            sprintf(message, "Sensor %hu has opened a connection\n", data.id);
+            write_to_log_process(message);
+            isFirstData = false; // Set flag to false after logging the first data
+        }
+
+        pthread_mutex_lock(&mutex2);
         if ((result == TCP_NO_ERROR) && bytes) {
             printf("sensor id = %" PRIu16 " - temperature = %g - timestamp = %ld\n", data.id, data.value,
                    (long int) data.ts);
-            sbuffer_insert(tempBuffer,&data);
+            sbuffer_insert(tempBuffer, &data);
 
             printf("Data inserted into buffer\n");
-
         }
         pthread_mutex_unlock(&mutex2);
     } while (result == TCP_NO_ERROR);
 
     if (result == TCP_CONNECTION_CLOSED) {
         printf("Peer has closed connection\n");
-
     }
     else {
         printf("Error occurred on connection to peer\n");

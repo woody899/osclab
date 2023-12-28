@@ -55,7 +55,7 @@ int element_compare(void *x, void *y) {
 }
 
 
-void datamgr_parse_sensor_files(FILE *fp_sensor_map, sbuffer_t* buffer) {
+void datamgr_parse_sensor_files(FILE *fp_sensor_map, sbuffer_t* buffer, pthread_mutex_t *mutex) {
     if (!fp_sensor_map || !buffer) {
         fprintf(stderr, "File pointers are NULL\n");
         return;
@@ -81,7 +81,8 @@ void datamgr_parse_sensor_files(FILE *fp_sensor_map, sbuffer_t* buffer) {
     sensor_data_t *sensorLog;
     sensorLog = (sensor_data_t*)malloc(sizeof(sensor_data_t));
     while (sbuffer_remove(buffer, sensorLog) == SBUFFER_SUCCESS) {
-        if (sbuffer_getFlagData(buffer, sensorLog->id) == 0) {
+        ///pthread_mutex_lock(mutex);
+        if (sensorLog->mgrData == 0) {
             // checking if sensorLog->id is in roomAndSensor list
             bool sensorExists = false;
             for (int k = 0; k < dpl_size(roomAndSensor); k++) {
@@ -100,14 +101,12 @@ void datamgr_parse_sensor_files(FILE *fp_sensor_map, sbuffer_t* buffer) {
                 printf("Sensor data with ID %hu not found in sensor map\n", sensorLog->id);
             }
 
-            sbuffer_update_mgrData(buffer);
-        } else{
-            free(sensorLog);
-            break;
+            buffer->head->data.mgrData = 1;
         }
 
-        free(sensorLog);
+        //pthread_mutex_unlock(mutex);
     }
+    free(sensorLog);
 
     sensor_value_t arrayAvg[5];
     int roomListSize = dpl_size(roomAndSensor);
