@@ -78,9 +78,26 @@ time_t datamgr_get_last_modified(sensor_id_t sensor_id);
  */
 int datamgr_get_total_sensors();
 
+
+/**
+ *
+ * @param sensorId Sensor ID being passed from the connection manager
+ * @return 1 if sensor exists in room_sensor.map, 0 otherwise
+ */
 int existing_sensor_in_room(sensor_id_t sensorId);
 
+/**
+ * This essentially checks if a sensor that is in the room is ALSO connected and have sent out data.
+ * @param sensorId Sensor ID being being read from the room_sensor.map(which was added to a list)
+ * @return 1 if sensor(in room) exists in the list of data passed by the connection manager
+ */
 int existing_sensor_in_buffer(sensor_id_t sensorId);
 
+
+/**
+ *
+ * @param id Sensor ID we're updating the running average of
+ * @param newTemp The temperature associated with the sensor id
+ */
 void update_running_avg(sensor_id_t id, sensor_value_t newTemp);
 #endif  //DATAMGR_H_

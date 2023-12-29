@@ -1,13 +1,53 @@
-0 - Fri Dec 29 02:27:17 2023 Data file opened
-1 - Fri Dec 29 02:27:21 2023 Sensor 2 has opened a connection
-2 - Fri Dec 29 02:27:21 2023 Received data from invalid sensor node ID 2
-3 - Fri Dec 29 02:27:24 2023 Sensor 15 has opened a connection
-4 - Fri Dec 29 02:27:24 2023 Sensor 15 reports that it's too hot! (avg temp = 20.04)
-5 - Fri Dec 29 02:27:24 2023 Data inserted
-6 - Fri Dec 29 02:27:26 2023 Received data from invalid sensor node ID 2
-7 - Fri Dec 29 02:27:26 2023 Data inserted
-8 - Fri Dec 29 02:27:28 2023 Data inserted
-9 - Fri Dec 29 02:27:31 2023 Peer with sensor ID 2 has closed connection
-10 - Fri Dec 29 02:27:31 2023 Peer with sensor ID 15 has closed connection
-11 - Fri Dec 29 02:27:31 2023 Data inserted
-12 - Fri Dec 29 02:27:31 2023 Data file closed
+0 - Fri Dec 29 21:45:55 2023 Data file opened
+1 - Fri Dec 29 21:45:58 2023 Sensor 37 has opened a connection
+2 - Fri Dec 29 21:45:58 2023 Sensor 37 reports that it's too hot! (avg temp = 20.02)
+3 - Fri Dec 29 21:45:58 2023 Sensor 142 has opened a connection
+4 - Fri Dec 29 21:45:58 2023 Sensor 15 has opened a connection
+5 - Fri Dec 29 21:45:58 2023 Sensor 132 has opened a connection
+6 - Fri Dec 29 21:45:58 2023 Sensor 21 has opened a connection
+7 - Fri Dec 29 21:45:58 2023 Data inserted
+8 - Fri Dec 29 21:45:58 2023 Data inserted
+9 - Fri Dec 29 21:45:58 2023 Sensor 142 reports that it's too hot! (avg temp = 20.02)
+10 - Fri Dec 29 21:45:58 2023 Sensor 15 reports that it's too hot! (avg temp = 20.02)
+11 - Fri Dec 29 21:45:58 2023 Data inserted
+12 - Fri Dec 29 21:45:58 2023 Data inserted
+13 - Fri Dec 29 21:45:58 2023 Sensor 132 reports that it's too hot! (avg temp = 20.02)
+14 - Fri Dec 29 21:45:58 2023 Sensor 21 reports that it's too hot! (avg temp = 20.02)
+15 - Fri Dec 29 21:45:58 2023 Data inserted
+16 - Fri Dec 29 21:45:59 2023 Data inserted
+17 - Fri Dec 29 21:46:02 2023 Data inserted
+18 - Fri Dec 29 21:46:02 2023 Data inserted
+19 - Fri Dec 29 21:46:02 2023 Sensor 15 reports that it's too hot! (avg temp = 20.03)
+20 - Fri Dec 29 21:46:02 2023 Data inserted
+21 - Fri Dec 29 21:46:02 2023 Data inserted
+22 - Fri Dec 29 21:46:02 2023 Data inserted
+23 - Fri Dec 29 21:46:02 2023 Data inserted
+24 - Fri Dec 29 21:46:03 2023 Sensor 15 reports that it's too hot! (avg temp = 20.09)
+25 - Fri Dec 29 21:46:03 2023 Data inserted
+26 - Fri Dec 29 21:46:03 2023 Data inserted
+27 - Fri Dec 29 21:46:05 2023 Data inserted
+28 - Fri Dec 29 21:46:05 2023 Data inserted
+29 - Fri Dec 29 21:46:05 2023 Sensor 37 reports that it's too hot! (avg temp = 20.03)
+30 - Fri Dec 29 21:46:05 2023 Data inserted
+31 - Fri Dec 29 21:46:05 2023 Data inserted
+32 - Fri Dec 29 21:46:05 2023 Data inserted
+33 - Fri Dec 29 21:46:05 2023 Data inserted
+34 - Fri Dec 29 21:46:07 2023 Data inserted
+35 - Fri Dec 29 21:46:07 2023 Data inserted
+36 - Fri Dec 29 21:46:07 2023 Sensor 37 reports that it's too hot! (avg temp = 20.09)
+37 - Fri Dec 29 21:46:07 2023 Data inserted
+38 - Fri Dec 29 21:46:08 2023 Data inserted
+39 - Fri Dec 29 21:46:08 2023 Sensor 132 reports that it's too hot! (avg temp = 20.03)
+40 - Fri Dec 29 21:46:08 2023 Sensor 21 reports that it's too hot! (avg temp = 20.03)
+41 - Fri Dec 29 21:46:08 2023 Data inserted
+42 - Fri Dec 29 21:46:08 2023 Data inserted
+43 - Fri Dec 29 21:46:08 2023 Sensor 142 reports that it's too hot! (avg temp = 20.03)
+44 - Fri Dec 29 21:46:08 2023 Data inserted
+45 - Fri Dec 29 21:46:09 2023 Data inserted
+46 - Fri Dec 29 21:46:09 2023 Data inserted
+47 - Fri Dec 29 21:46:09 2023 Peer with sensor ID 15 has closed connection
+48 - Fri Dec 29 21:46:09 2023 Peer with sensor ID 21 has closed connection
+49 - Fri Dec 29 21:46:09 2023 Peer with sensor ID 37 has closed connection
+50 - Fri Dec 29 21:46:09 2023 Peer with sensor ID 132 has closed connection
+51 - Fri Dec 29 21:46:09 2023 Peer with sensor ID 142 has closed connection
+52 - Fri Dec 29 21:46:09 2023 Data file closed

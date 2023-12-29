@@ -47,7 +47,6 @@ void *storagePasser(){
             // however, I think it would be wise to use insert_sensor instead, otherwise we end up with an
             //unused function. Besides, it already has a write_to_log process called in it.
             insert_sensor(fPointer, temp->id, temp->value, temp->ts);
-            printf("data inserted into csv file\n");
             sharedBuffer->head->data.mgrStorage = 1;
         }
         fflush(fPointer);

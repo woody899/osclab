@@ -8,6 +8,7 @@
 #include "lib/dplist.h"
 #include "datamgr.h"
 #include "sbuffer.h"
+#include "sensor_db.h"
 
 typedef struct {
     u_int16_t roomId;
@@ -62,6 +63,7 @@ void datamgr_parse_sensor_files(FILE *fp_sensor_map, sbuffer_t* buffer, pthread_
         fprintf(stderr, "File pointers are NULL\n");
         return;
     }
+
 
     // Initialize list pointers
     roomAndSensor = dpl_create(element_copy, element_free, element_compare);
