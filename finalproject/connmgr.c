@@ -54,7 +54,9 @@ void* handle_client(void* arg) {
     } while (result == TCP_NO_ERROR);
 
     if (result == TCP_CONNECTION_CLOSED) {
-        printf("Peer has closed connection\n");
+        char signOff[56];
+        sprintf(signOff,"Peer with sensor ID %hu has closed connection\n", data.id);
+        write_to_log_process(signOff);
     }
     else {
         printf("Error occurred on connection to peer\n");

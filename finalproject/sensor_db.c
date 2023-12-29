@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "config.h"
+#include "datamgr.h"
 
 
 
@@ -27,7 +28,12 @@ int insert_sensor(FILE * f, sensor_id_t id, sensor_value_t value, sensor_ts_t ts
     if(f == NULL){
         perror("File not found");
         return -1;
-    } else {
+    } else if(existing_sensor_in_room(id) != 1){
+        char message[56];
+        sprintf(message,"Received data from invalid sensor node ID %hu\n",id);
+        write_to_log_process(message);
+        return -1;
+    }else {
         fprintf(f, "%hu, %f, %ld\n", id, value, ts);
     }
     write_to_log_process("Data inserted\n");

@@ -43,13 +43,13 @@ int sbuffer_free(sbuffer_t **buffer) {
 
 int sbuffer_remove(sbuffer_t *buffer, sensor_data_t *data) {
     pthread_mutex_lock(&mutex);
-    //sbuffer_node_t *dummy;
+    sbuffer_node_t *dummy;
     if (buffer == NULL) return SBUFFER_FAILURE;
     while (buffer->head == NULL) {
         pthread_cond_wait(&condition,&mutex);
     }
     *data = buffer->head->data;
-    //dummy = buffer->head;
+    dummy = buffer->head;
     if(data->id == 0) {
         pthread_mutex_unlock(&mutex);
         pthread_cond_signal(&condition);
@@ -64,8 +64,9 @@ int sbuffer_remove(sbuffer_t *buffer, sensor_data_t *data) {
         {
             buffer->head = buffer->head->next;
         }
+        free(dummy);
     }
-    //free(dummy);
+
     pthread_mutex_unlock(&mutex);
     return SBUFFER_SUCCESS;
 }

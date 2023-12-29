@@ -31,7 +31,7 @@ void *connectionPasser(){
 
 
 void *storagePasser(){
-    FILE* fPointer = open_db("data.csv",true);
+    FILE* fPointer = open_db("data.csv",false);
     sensor_data_t* temp = (sensor_data_t*) malloc(sizeof(sensor_data_t));
     if(fPointer == NULL){
         printf("Error in opening CSV file");
@@ -40,7 +40,7 @@ void *storagePasser(){
 
     while(sbuffer_remove(sharedBuffer,temp) == 0){
 
-        //pthread_mutex_lock(&main_mutex);
+        pthread_mutex_lock(&main_mutex);
 
         if(temp->mgrStorage == 0) {
             // fprintf(fpointer,"%hu, %f, %ld\n",temp->id,temp->value,temp->ts); <- this will still work
@@ -51,7 +51,7 @@ void *storagePasser(){
             sharedBuffer->head->data.mgrStorage = 1;
         }
         fflush(fPointer);
-        //pthread_mutex_unlock(&main_mutex);
+        pthread_mutex_unlock(&main_mutex);
     }
     free(temp);
     close_db(fPointer);
@@ -126,24 +126,29 @@ int main(int argc, char* argv[]){
         pthread_mutex_destroy(&main_mutex);
 
         sbuffer_free(&sharedBuffer);
+        datamgr_get_avg(15);
+        datamgr_get_avg(37);
+        datamgr_get_avg(21);
+        datamgr_get_total_sensors();
+        datamgr_free();
         pthread_exit(NULL);
 
     }
 
     if(id == 0){
 
-        FILE *log = fopen("log_gateway.log", "a");
+        FILE *log = fopen("log_gateway.log", "w");
         close(logging_fd[1]);
         while ((read(logging_fd[0], mysteriousBuffer, sizeof(mysteriousBuffer))) > 0) {
             char *event = strtok(mysteriousBuffer, "\n");
             while (event != NULL) {
-                 time_t mytime = time(NULL);
-                 char *time_str = ctime(&mytime);
-                 time_str[strlen(time_str) - 1] = '\0';
-                 fprintf(log, "%d - %s %s\n", i, time_str, event);
-                 fflush(log);
-                 i++;
-                 event = strtok(NULL, "\n");
+                time_t mytime = time(NULL);
+                char *time_str = ctime(&mytime);
+                time_str[strlen(time_str) - 1] = '\0';
+                fprintf(log, "%d - %s %s\n", i, time_str, event);
+                fflush(log);
+                i++;
+                event = strtok(NULL, "\n");
             }
             //memset basically resets the buffer
             memset(mysteriousBuffer,0,sizeof(mysteriousBuffer));

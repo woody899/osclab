@@ -10,6 +10,7 @@
 #include <pthread.h>
 #include "config.h"
 #include "sbuffer.h"
+#include "lib/dplist.h"
 
 #ifndef RUN_AVG_LENGTH
 #define RUN_AVG_LENGTH 5
@@ -77,4 +78,9 @@ time_t datamgr_get_last_modified(sensor_id_t sensor_id);
  */
 int datamgr_get_total_sensors();
 
+int existing_sensor_in_room(sensor_id_t sensorId);
+
+int existing_sensor_in_buffer(sensor_id_t sensorId);
+
+void update_running_avg(sensor_id_t id, sensor_value_t newTemp);
 #endif  //DATAMGR_H_
