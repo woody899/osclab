@@ -123,14 +123,12 @@ int main(int argc, char* argv[]){
         pthread_join(storageThread,NULL);
         pthread_join(dataMgrThread,NULL);
 
-        pthread_mutex_destroy(&main_mutex);
 
         sbuffer_free(&sharedBuffer);
-        datamgr_get_avg(15);
-        datamgr_get_avg(37);
-        datamgr_get_avg(21);
-        datamgr_get_total_sensors();
         datamgr_free();
+
+        pthread_mutex_destroy(&main_mutex);
+
         pthread_exit(NULL);
 
     }

@@ -125,41 +125,15 @@ int sbuffer_update_mgrData(sbuffer_t *buffer) {
 }
 
 
-//int sbuffer_update_mgrStorage(sbuffer_t *buffer){
-//    pthread_mutex_lock(&mutex);
-//    if (buffer == NULL || buffer->head == NULL) {
-//        pthread_mutex_unlock(&mutex);
-//        return SBUFFER_FAILURE;
-//    }
-//
-//    buffer->head->data.mgrStorage = 1;
-//
-//    pthread_mutex_unlock(&mutex);
-//    return SBUFFER_SUCCESS;
-//}
+int sbuffer_update_mgrStorage(sbuffer_t *buffer){
+    pthread_mutex_lock(&mutex);
+    if (buffer == NULL || buffer->head == NULL) {
+        pthread_mutex_unlock(&mutex);
+        return SBUFFER_FAILURE;
+    }
 
+    buffer->head->data.mgrStorage = 1;
 
-//int sbuffer_getFlagData(sbuffer_t *sbuffer,sensor_id_t sensorId){
-//    sbuffer_node_t *current = sbuffer->head;
-//    while (current != NULL) {
-//        if (current->data.id == sensorId) {
-//            return current->mgrData;
-//        }
-//        current = current->next;
-//    }
-//
-//    return -1;
-//
-//}
-//
-//int sbuffer_getFlagStorage(sbuffer_t *sbuffer,sensor_id_t sensorId){
-//    sbuffer_node_t *current = sbuffer->head;
-//    while (current != NULL) {
-//        if (current->data.id == sensorId) {
-//            return current->mgrStorage;
-//        }
-//        current = current->next;
-//    }
-//    return -1;
-//}
-
+    pthread_mutex_unlock(&mutex);
+    return SBUFFER_SUCCESS;
+}

@@ -156,7 +156,7 @@ sensor_value_t datamgr_get_avg(sensor_id_t sensor_id){
     while(traveller != NULL){
         listElement *tempElement = dpl_get_element_at_reference(roomAndSensor, traveller);
         if (tempElement != NULL && tempElement->sensorId == sensor_id) {
-            printf("sensor %d run avg %.2f\n",tempElement->sensorId,tempElement->runningAvg);
+            printf("Sensor %d final running avg: %.2f\n",tempElement->sensorId,tempElement->runningAvg);
             return tempElement->runningAvg;
         }
         j++;
@@ -195,7 +195,7 @@ int datamgr_get_total_sensors(){
         printf("List is not initialized");
         exit(EXIT_FAILURE);
     }
-    printf("total sensors %d", dpl_size(roomAndSensor));
+    printf("Total Nr of Sensors: %d\n", dpl_size(roomAndSensor));
     return dpl_size(roomAndSensor);
 }
 

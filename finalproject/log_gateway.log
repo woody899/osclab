@@ -1,0 +1,13 @@
+0 - Fri Dec 29 02:27:17 2023 Data file opened
+1 - Fri Dec 29 02:27:21 2023 Sensor 2 has opened a connection
+2 - Fri Dec 29 02:27:21 2023 Received data from invalid sensor node ID 2
+3 - Fri Dec 29 02:27:24 2023 Sensor 15 has opened a connection
+4 - Fri Dec 29 02:27:24 2023 Sensor 15 reports that it's too hot! (avg temp = 20.04)
+5 - Fri Dec 29 02:27:24 2023 Data inserted
+6 - Fri Dec 29 02:27:26 2023 Received data from invalid sensor node ID 2
+7 - Fri Dec 29 02:27:26 2023 Data inserted
+8 - Fri Dec 29 02:27:28 2023 Data inserted
+9 - Fri Dec 29 02:27:31 2023 Peer with sensor ID 2 has closed connection
+10 - Fri Dec 29 02:27:31 2023 Peer with sensor ID 15 has closed connection
+11 - Fri Dec 29 02:27:31 2023 Data inserted
+12 - Fri Dec 29 02:27:31 2023 Data file closed

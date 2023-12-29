@@ -79,20 +79,5 @@ int sbuffer_update_mgrData(sbuffer_t *buffer);
  */
 int sbuffer_update_mgrStorage(sbuffer_t *buffer);
 
-/**
- *
- * @param sbuffer
- * @param sensorId
- * @return
- */
-int sbuffer_getFlagData(sbuffer_t *sbuffer,sensor_id_t sensorId);
-
-/**
- *
- * @param sbuffer
- * @param sensorId
- * @return
- */
-int sbuffer_getFlagStorage(sbuffer_t *sbuffer,sensor_id_t sensorId);
 
 #endif  //_SBUFFER_H_
